@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Light, Green Light</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Traffic Light -->
+        <div class="traffic-light">
+            <div class="light red" id="red-light"></div>
+            <div class="light yellow" id="yellow-light"></div>
+            <div class="light green" id="green-light"></div>
+        </div>
+
+        <!-- Status Game -->
+        <div class="status-panel">
+            <div class="status-info">
+                <span id="game-status">Bersiap...</span>
+            </div>
+            <div class="timer">
+                <span id="timer-display">0:00</span>
+            </div>
+            <div class="race-info">
+                <div class="survivors">
+                    <span>Tersisa: <span id="survivors-count">6</span></span>
+                </div>
+                <div class="position-tracker">
+                    <span>Posisimu: <span id="player-rank">#6</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area">
+            <!-- Finish Line -->
+            <div class="finish-line"></div>
+            
+            <!-- Doll (Boneka Pembunuh) -->
+            <div class="doll" id="doll"></div>
+            
+            <!-- Player -->
+            <div class="player" id="player">
+                <div class="player-label">YOU</div>
+            </div>
+            
+            <!-- Bots -->
+            <div class="bot bot1" id="bot1">
+                <div class="bot-label">B1</div>
+            </div>
+            <div class="bot bot2" id="bot2">
+                <div class="bot-label">B2</div>
+            </div>
+            <div class="bot bot3" id="bot3">
+                <div class="bot-label">B3</div>
+            </div>
+            <div class="bot bot4" id="bot4">
+                <div class="bot-label">B4</div>
+            </div>
+            <div class="bot bot5" id="bot5">
+                <div class="bot-label">B5</div>
+            </div>
+
+            <!-- Death Effects -->
+            <div class="death-effects" id="death-effects"></div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn move-btn" id="move-btn">
+                MAJU
+            </button>
+            <button class="control-btn stop-btn" id="stop-btn">
+                STOP
+            </button>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div class="game-over-screen" id="game-over-screen">
+            <div class="game-over-content">
+                <h2 id="game-result">GAME OVER</h2>
+                <p id="result-message">Kamu Kalah!</p>
+                <div class="final-stats">
+                    <p>Waktu Bermain: <span id="final-time">0:00</span></p>
+                    <p>Posisi Akhir: <span id="final-position">#6</span></p>
+                    <p>Jarak Tercapai: <span id="final-distance">0%</span></p>
+                    <div class="leaderboard">
+                        <h3>🏆 Top 3 Finisher:</h3>
+                        <div id="top-finishers">
+                            <div class="finisher-item">
+                                <span class="rank">🥇</span>
+                                <span class="name">-</span>
+                                <span class="time">-</span>
+                            </div>
+                            <div class="finisher-item">
+                                <span class="rank">🥈</span>
+                                <span class="name">-</span>
+                                <span class="time">-</span>
+                            </div>
+                            <div class="finisher-item">
+                                <span class="rank">🥉</span>
+                                <span class="name">-</span>
+                                <span class="time">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="restart-btn" id="restart-btn">MAIN LAGI</button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions" id="instructions">
+            <div class="instruction-content">
+                <h2>Red Light, Green Light</h2>
+                <div class="instruction-text">
+                    <p><strong>🟢 LAMPU HIJAU:</strong> Tekan "MAJU" untuk bergerak</p>
+                    <p><strong>🟡 LAMPU KUNING:</strong> Bersiap untuk berhenti</p>
+                    <p><strong>🔴 LAMPU MERAH:</strong> BERHENTI! Jangan bergerak</p>
+                    <p><strong>🎯 TUJUAN:</strong> Masuk 3 besar yang mencapai finish</p>
+                    <p><strong>💀 PERINGATAN:</strong> Bot yang bergerak saat merah akan mati!</p>
+                    <p><strong>🏃‍♂️ STRATEGI:</strong> Bot bergerak otomatis dengan kecepatan berbeda</p>
+                </div>
+                <button class="start-btn" id="start-btn">MULAI GAME</button>
+            </div>
+        </div>
+
+        <!-- Race Progress Bar -->
+        <div class="race-progress" id="race-progress">
+            <div class="progress-header">🏁 Progress Menuju Finish</div>
+            <div class="progress-bars">
+                <div class="progress-item">
+                    <span class="progress-label">YOU</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill player-progress" id="player-progress"></div>
+                    </div>
+                    <span class="progress-percent" id="player-percent">0%</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">BOT1</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill bot-progress" id="bot1-progress"></div>
+                    </div>
+                    <span class="progress-percent" id="bot1-percent">0%</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">BOT2</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill bot-progress" id="bot2-progress"></div>
+                    </div>
+                    <span class="progress-percent" id="bot2-percent">0%</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">BOT3</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill bot-progress" id="bot3-progress"></div>
+                    </div>
+                    <span class="progress-percent" id="bot3-percent">0%</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">BOT4</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill bot-progress" id="bot4-progress"></div>
+                    </div>
+                    <span class="progress-percent" id="bot4-percent">0%</span>
+                </div>
+                <div class="progress-item">
+                    <span class="progress-label">BOT5</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill bot-progress" id="bot5-progress"></div>
+                    </div>
+                    <span class="progress-percent" id="bot5-percent">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
